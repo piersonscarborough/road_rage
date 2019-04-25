@@ -13,7 +13,22 @@ class Vehicle(pygame.sprite.Sprite):
 # Create Player Class that inherits from Car Class
 
 class Player(Vehicle):
-    pass
+    def move(self):
+        self.move = [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]
+        self.vx = 5
+        self.vy = 5
+
+        key = pygame.key.get_pressed()
+
+        for i in range(2):
+            if key[self.move[i]]:
+                self.rect.x += self.vx * [-1, 1][i]
+
+        for i in range(2):
+            if key[self.move[2:4][i]]:
+                self.rect.y += self.vy * [-1, 1][i]
+
+
 
 
 def main():
@@ -28,6 +43,13 @@ def main():
 
     # Game initialization
     stop_game = False
+    
+    # initialize player and add direction button controls
+    player = Player(images/player_image, 40, 50, 0)
+    player.move = [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]
+    player.vx = 5
+    player.vy = 5
+    
     while not stop_game:
         for event in pygame.event.get():
             
@@ -36,12 +58,16 @@ def main():
                 stop_game = True
 
         # Game logic
+        player.move()
 
         # Draw background
         screen.fill(blue_color)
         #screen.blit(background_image, [0, 0])
 
         # Draw player, enemy, and other vehicles
+        player_group = pygame.sprite.Group()
+        player_group.add(player)
+        player_group.draw(screen)
 
         # Game display
         pygame.display.update()
