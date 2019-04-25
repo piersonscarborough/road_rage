@@ -45,7 +45,7 @@ def main():
     stop_game = False
     
     # initialize player and add direction button controls
-    player = Player(images/player_image, 40, 50, 0)
+    player = Player(images/player_image.png, 40, 50, 0)
     player.move = [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]
     player.vx = 5
     player.vy = 5
